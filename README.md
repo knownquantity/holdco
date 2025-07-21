@@ -1,2 +1,1 @@
-# holdco
-holdco page
+holdco landing page
