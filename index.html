@@ -21,6 +21,61 @@
     <p>a crypto-native creative studio connecting people and ideas in unexpected ways</p>
     <p>join the <a href="https://t.me/+271Q7rp-VSw5YjIx">telegram</a> channel and follow us on <a href="https://x.com/0xninetynine">twitter</a> for updates and new releases</p>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrolling Text</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            font-family: 'Courier New', monospace;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .scrolling-container {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .scrolling-text {
+            display: inline-block;
+            color: #00ff00;
+            font-size: 18px;
+            animation: scroll-left 60s linear infinite;
+            padding-left: 100%;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Retro terminal aesthetic */
+        .scrolling-text {
+            text-shadow: 0 0 10px #00ff00;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="scrolling-container">
+        <div class="scrolling-text">
+            the internet in 1999 was strange, social and expressive • the internet in 2025 is algorithmic, optimized and calculated • ninetynine labs build networks, social experiences and community products designed for intimacy and intrigue • online and offline destinations with no signage • social graphs powered by symbolic access, shared rituals, and cultural capital • human-to-human interactions as the core driver of discovery, creativity and belonging
+        </div>
+    </div>
+</body>
+
+    
     <h2>lore</h2>
     <p>the internet in 1999 was strange, social and expressive</p>
     <p>the internet in 2025 is algorithmic, optimized and calculated</p>
