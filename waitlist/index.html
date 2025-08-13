@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>waitlist - ninetynine labs</title>
+    <meta name="description" content="join the waitlist, exit the algorithm">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://1999.wtf/waitlist">
+    <meta property="og:title" content="waitlist - ninetynine labs">
+    <meta property="og:description" content="join the waitlist, exit the algorithm">
+    <meta property="og:image" content="https://1999.wtf/1999v3.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://1999.wtf/waitlist">
+    <meta property="twitter:title" content="waitlist - ninetynine labs">
+    <meta property="twitter:description" content="join the waitlist, exit the algorithm">
+    <meta property="twitter:image" content="https://1999.wtf/1999v3.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/faviconv4.png">
+    <link rel="apple-touch-icon" href="/faviconv4.png">
+    
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #C0C0C0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      
+
+      
+      .tagline {
+        font-size: 36px;
+        color: #2C2C2C;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: normal;
+      }
+      
+      .tagline .muted {
+        color: #666666;
+      }
+      
+      .subtitle {
+        font-size: 32px;
+        color: #2C2C2C;
+        margin-bottom: 60px;
+        text-align: center;
+        font-weight: normal;
+      }
+      
+      .form-container {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+      }
+      
+      .email-input {
+        width: 400px;
+        height: 60px;
+        font-size: 24px;
+        padding: 0 20px;
+        border: 3px solid #2C2C2C;
+        border-radius: 15px;
+        background-color: #E8E8E8;
+        color: #666666;
+        font-family: Arial, sans-serif;
+      }
+      
+      .email-input:focus {
+        outline: none;
+        background-color: #FFFFFF;
+        color: #2C2C2C;
+      }
+      
+      .email-input::placeholder {
+        color: #666666;
+      }
+      
+      .submit-btn {
+        width: 120px;
+        height: 66px;
+        font-size: 24px;
+        border: 3px solid #2C2C2C;
+        border-radius: 15px;
+        background-color: #E8E8E8;
+        color: #2C2C2C;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+        font-weight: normal;
+      }
+      
+      .submit-btn:hover {
+        background-color: #D0D0D0;
+      }
+      
+      .submit-btn:active {
+        background-color: #B8B8B8;
+      }
+      
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      
+      .message {
+        margin-top: 30px;
+        font-size: 18px;
+        text-align: center;
+        min-height: 24px;
+      }
+      
+      .success {
+        color: #2C5234;
+      }
+      
+      .error {
+        color: #8B2635;
+      }
+      
+      @media (max-width: 600px) {
+        
+        .tagline {
+          font-size: 28px;
+        }
+        
+        .subtitle {
+          font-size: 24px;
+        }
+        
+        .form-container {
+          flex-direction: row;
+          gap: 15px;
+        }
+        
+        .email-input {
+          width: 300px;
+          height: 50px;
+          font-size: 20px;
+        }
+        
+        .submit-btn {
+          width: 100px;
+          height: 56px;
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="tagline">
+      coming soon <span class="muted">&lt;by ninetynine labs&gt;</span>
+    </div>
+    
+    <div class="subtitle">
+      join the waitlist, exit the algorithm
+    </div>
+    
+    <form class="form-container" id="waitlistForm">
+      <input 
+        type="email" 
+        class="email-input" 
+        id="emailInput"
+        placeholder="your@email.com" 
+        required
+        autocomplete="email"
+      >
+      <button type="submit" class="submit-btn" id="submitBtn">drop in</button>
+    </form>
+    
+    <div class="message" id="message"></div>
+    
+    <script>
+      // Initialize Supabase client
+      const supabaseUrl = 'https://jzxmdagyfxylqefpikrr.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6eG1kYWd5Znh5bHFlZnBpa3JyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1Mjc4MzgsImV4cCI6MjA2ODEwMzgzOH0.HO17RKaz5z_7zVGlaMP3CQHSbNnzH2oyD9kffM5eCVE';
+      const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+      
+      const form = document.getElementById('waitlistForm');
+      const emailInput = document.getElementById('emailInput');
+      const submitBtn = document.getElementById('submitBtn');
+      const message = document.getElementById('message');
+      
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = emailInput.value.trim();
+        if (!email) return;
+        
+        // Disable form during submission
+        submitBtn.disabled = true;
+        submitBtn.textContent = '...';
+        message.textContent = '';
+        
+        try {
+          console.log('Attempting to insert email:', email);
+          console.log('Supabase client:', supabase);
+          
+          // Insert email into Supabase
+          const { data, error } = await supabase
+            .from('ninetynine labs waitlist')
+            .insert([
+              { 
+                email: email
+              }
+            ]);
+          
+          console.log('Supabase response - data:', data);
+          console.log('Supabase response - error:', error);
+          
+          if (error) {
+            console.error('Supabase error details:', error);
+            // Check if it's a duplicate email error
+            if (error.code === '23505' || error.message.includes('duplicate')) {
+              message.textContent = 'already on the list, see you soon';
+              message.className = 'message success';
+            } else {
+              message.textContent = `error: ${error.message}`;
+              message.className = 'message error';
+            }
+          } else {
+            message.textContent = 'welcome to the waitlist';
+            message.className = 'message success';
+            emailInput.value = '';
+          }
+          
+        } catch (error) {
+          console.error('Catch block error:', error);
+          message.textContent = `connection error: ${error.message}`;
+          message.className = 'message error';
+        } finally {
+          // Re-enable form
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'drop in';
+        }
+      });
+      
+      // Clear message when user starts typing again
+      emailInput.addEventListener('input', () => {
+        message.textContent = '';
+        message.className = 'message';
+      });
+    </script>
+  </body>
+</html>
