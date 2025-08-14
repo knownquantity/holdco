@@ -38,13 +38,9 @@
         align-items: flex-start;
         justify-content: flex-start;
         padding: 40px 20px 0 20px;
-        font-size: 20px;
       }
       
-      * {
-        font-size: 20px !important;
-        font-family: Arial, sans-serif !important;
-      }
+
       
       .container {
         max-width: 800px;
@@ -53,7 +49,7 @@
       }
       
       .tagline {
-        font-size: 30px;
+        font-size: 16px;
         color: #2C2C2C;
         margin-bottom: 10px;
         text-align: left;
@@ -63,7 +59,7 @@
       }
       
       .by-line {
-        font-size: 30px;
+        font-size: 16px;
         color: #2C2C2C;
         margin-bottom: 10px;
         text-align: left;
@@ -86,7 +82,7 @@
       }
       
       .subtitle {
-        font-size: 30px;
+        font-size: 16px;
         color: #2C2C2C;
         margin-bottom: 40px;
         text-align: left;
@@ -107,7 +103,7 @@
       .form-input {
         width: 400px;
         height: 50px;
-        font-size: 20px;
+        font-size: 16px;
         padding: 0 15px;
         border: 1px solid #000000;
         border-radius: 15px;
@@ -129,7 +125,7 @@
       .submit-btn {
         width: 120px;
         height: 56px;
-        font-size: 30px;
+        font-size: 16px;
         border: 1px solid #000000;
         border-radius: 15px;
         background-color: #F5F5F5;
@@ -155,7 +151,7 @@
       
       .message {
         margin-top: 30px;
-        font-size: 30px;
+        font-size: 16px;
         text-align: left;
         min-height: 24px;
         font-family: Arial, sans-serif;
@@ -171,11 +167,11 @@
       
       @media (max-width: 600px) {
         .tagline {
-          font-size: 10px;
+          font-size: 16px;
         }
         
         .subtitle {
-          font-size: 10px;
+          font-size: 16px;
         }
         
         .form-container {
@@ -186,13 +182,13 @@
         .form-input {
           width: 280px;
           height: 50px;
-          font-size: 20px;
+          font-size: 16px;
         }
         
         .submit-btn {
           width: 100px;
           height: 56px;
-          font-size: 20px;
+          font-size: 16px;
         }
         
         img {
@@ -208,7 +204,7 @@
         <img src="/1999v3.png" alt="1999" style="margin-bottom: 40px; max-width: 30%; height: auto;">
         
         <div class="tagline">coming soon</div>
-        <div class="by-line">by &lt;<a href="https://1999.wtf/">ninetynine labs</a>&gt;</div>
+        <div class="by-line">by <a href="https://1999.wtf/">ninetynine labs</a></div>
         <div class="subtitle">join the waitlist, exit the algorithm</div>
         
         <form id="waitlistForm">
@@ -236,7 +232,7 @@
               autocomplete="off"
             >
           </div>
-          <button type="submit" class="submit-btn" id="submitBtn" style="font-weight: bold;">drop in</button>
+          <button type="submit" class="submit-btn" id="submitBtn" style="font-weight: bold;" disabled>drop in</button>
         </form>
         
         <div class="message" id="message"></div>
@@ -321,10 +317,14 @@
         }
       });
       
-      // Clear message when user starts typing again
-      document.getElementById('emailInput').addEventListener('input', () => {
+      // Clear message when user starts typing again and enable/disable submit button
+      document.getElementById('emailInput').addEventListener('input', (e) => {
         message.textContent = '';
         message.className = 'message';
+        
+        // Enable submit button only if email field has content
+        const email = e.target.value.trim();
+        submitBtn.disabled = !email;
       });
       
       document.getElementById('ethAddressInput').addEventListener('input', () => {
