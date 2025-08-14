@@ -25,6 +25,8 @@
     <link rel="apple-touch-icon" href="/faviconv4.png">
     
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <!-- reCAPTCHA Script -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     
     <style>
       body {
@@ -120,6 +122,10 @@
       
       .form-input::placeholder {
         color: #666666;
+      }
+      
+      .recaptcha-container {
+        margin: 15px 0;
       }
       
       .submit-btn {
@@ -231,6 +237,11 @@
               placeholder="sol address (optional)" 
               autocomplete="off"
             >
+            
+            <!-- reCAPTCHA Widget -->
+            <div class="recaptcha-container">
+              <div class="g-recaptcha" data-sitekey="6LfucaYrAAAAAFN1RlRdCGlJqS7yjX3TiD2FZjeF"></div>
+            </div>
           </div>
           <button type="submit" class="submit-btn" id="submitBtn" style="font-weight: bold;" disabled>drop in</button>
         </form>
@@ -264,6 +275,14 @@
         const solAddress = document.getElementById('solAddressInput').value.trim();
         
         if (!email) return;
+        
+        // Check reCAPTCHA
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+          message.textContent = 'please complete the reCAPTCHA verification';
+          message.className = 'message error';
+          return;
+        }
         
         // Disable form during submission
         submitBtn.disabled = true;
@@ -304,6 +323,8 @@
             document.getElementById('emailInput').value = '';
             document.getElementById('ethAddressInput').value = '';
             document.getElementById('solAddressInput').value = '';
+            // Reset reCAPTCHA
+            grecaptcha.reset();
           }
           
         } catch (error) {
