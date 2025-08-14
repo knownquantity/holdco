@@ -3,21 +3,21 @@
   <head prefix="og: https://ogp.me/ns#">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>waitlist - ninetynine labs</title>
-    <meta name="description" content="join the waitlist, exit the algorithm">
+    <title>waitlist</title>
+    <meta name="description" content="exit the algorithm">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://1999.wtf/waitlist">
-    <meta property="og:title" content="waitlist - ninetynine labs">
-    <meta property="og:description" content="join the waitlist, exit the algorithm">
+    <meta property="og:title" content="waitlist">
+    <meta property="og:description" content="exit the algorithm">
     <meta property="og:image" content="https://1999.wtf/1999v3.png">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://1999.wtf/waitlist">
-    <meta property="twitter:title" content="waitlist - ninetynine labs">
-    <meta property="twitter:description" content="join the waitlist, exit the algorithm">
+    <meta property="twitter:title" content="waitlist">
+    <meta property="twitter:description" content="exit the algorithm">
     <meta property="twitter:image" content="https://1999.wtf/1999v3.png">
     
     <!-- Favicon -->
@@ -31,85 +31,121 @@
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
-        background-color: #C0C0C0;
+        background-color: #FFFFFF;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding: 40px 20px;
+        font-size: 20px;
+      }
+      
+      * {
+        font-size: 20px !important;
+        font-family: Arial, sans-serif !important;
+      }
+      
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        width: 100%;
       }
       
 
       
       .tagline {
-        font-size: 36px;
+        font-size: 30px;
         color: #2C2C2C;
-        margin-bottom: 20px;
-        text-align: center;
+        margin-bottom: 0;
+        text-align: left;
         font-weight: normal;
+        font-family: Arial, sans-serif;
+        line-height: 1.2;
       }
       
-      .tagline .muted {
-        color: #666666;
-      }
-      
-      .subtitle {
-        font-size: 32px;
+      .by-line {
+        font-size: 30px;
         color: #2C2C2C;
-        margin-bottom: 60px;
-        text-align: center;
+        margin-bottom: 0;
+        text-align: left;
         font-weight: normal;
+        font-family: Arial, sans-serif;
+        line-height: 1.2;
       }
       
-      .form-container {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        justify-content: center;
-        flex-direction: row;
-      }
-      
-      .email-input {
-        width: 400px;
-        height: 60px;
-        font-size: 24px;
-        padding: 0 20px;
-        border: 3px solid #2C2C2C;
-        border-radius: 15px;
-        background-color: #E8E8E8;
-        color: #666666;
+      .by-line a {
+        color: #1E40AF;
+        text-decoration: none;
         font-family: Arial, sans-serif;
       }
       
-      .email-input:focus {
+      .by-line a:hover {
+        text-decoration: underline;
+        color: #1E40AF;
+      }
+      
+      .subtitle {
+        font-size: 30px;
+        color: #2C2C2C;
+        margin-bottom: 40px;
+        text-align: left;
+        font-weight: normal;
+        font-family: Arial, sans-serif;
+        line-height: 1.2;
+      }
+      
+      .form-container {
+        display: flex !important;
+        gap: 15px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column !important;
+        margin-bottom: 20px;
+      }
+      
+      .form-input {
+        width: 400px;
+        height: 50px;
+        font-size: 20px;
+        padding: 0 15px;
+        border: 1px solid #000000;
+        border-radius: 15px;
+        background-color: #F5F5F5;
+        color: #2C2C2C;
+        font-family: Arial, sans-serif;
+      }
+      
+      .form-input:focus {
         outline: none;
-        background-color: #FFFFFF;
+        background-color: #F5F5F5;
         color: #2C2C2C;
       }
       
-      .email-input::placeholder {
+      .form-input::placeholder {
         color: #666666;
       }
       
       .submit-btn {
         width: 120px;
-        height: 66px;
-        font-size: 24px;
-        border: 3px solid #2C2C2C;
+        height: 56px;
+        font-size: 30px;
+        border: 1px solid #000000;
         border-radius: 15px;
-        background-color: #E8E8E8;
+        background-color: #F5F5F5;
         color: #2C2C2C;
         cursor: pointer;
         font-family: Arial, sans-serif;
         font-weight: normal;
+        margin-top: 0;
       }
       
       .submit-btn:hover {
-        background-color: #D0D0D0;
+        background-color: #EEEEEE;
       }
       
       .submit-btn:active {
-        background-color: #B8B8B8;
+        background-color: #E0E0E0;
       }
       
       .submit-btn:disabled {
@@ -119,27 +155,28 @@
       
       .message {
         margin-top: 30px;
-        font-size: 18px;
-        text-align: center;
+        font-size: 30px;
+        text-align: left;
         min-height: 24px;
+        font-family: Arial, sans-serif;
       }
       
       .success {
-        color: #2C5234;
+        color: #00FF88;
       }
       
       .error {
-        color: #8B2635;
+        color: #FF6B6B;
       }
       
       @media (max-width: 600px) {
         
         .tagline {
-          font-size: 28px;
+          font-size: 10px;
         }
         
         .subtitle {
-          font-size: 24px;
+          font-size: 10px;
         }
         
         .form-container {
@@ -163,27 +200,45 @@
   </head>
   
   <body>
-    <div class="tagline">
-      coming soon <span class="muted">&lt;by ninetynine labs&gt;</span>
+    <div class="container">
+      <div class="content">
+        <div class="tagline">coming soon</div>
+        <div class="by-line">by &lt;<a href="https://1999.wtf/">ninetynine labs</a>&gt;</div>
+        <div class="subtitle">join the waitlist, exit the algorithm</div>
+        
+        <form id="waitlistForm">
+          <div class="form-container">
+            <input 
+              type="email" 
+              class="form-input" 
+              id="emailInput"
+              placeholder="email (required)" 
+              required
+              autocomplete="email"
+            >
+            <input 
+              type="text" 
+              class="form-input" 
+              id="ethAddressInput"
+              placeholder="eth address (optional)" 
+              autocomplete="off"
+            >
+            <input 
+              type="text" 
+              class="form-input" 
+              id="solAddressInput"
+              placeholder="sol address (optional)" 
+              autocomplete="off"
+            >
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">drop in</button>
+        </form>
+        
+        <img src="/1999.png" alt="1999" style="margin-top: 20px; max-width: 100%; height: auto;">
+        
+        <div class="message" id="message"></div>
+      </div>
     </div>
-    
-    <div class="subtitle">
-      join the waitlist, exit the algorithm
-    </div>
-    
-    <form class="form-container" id="waitlistForm">
-      <input 
-        type="email" 
-        class="email-input" 
-        id="emailInput"
-        placeholder="your@email.com" 
-        required
-        autocomplete="email"
-      >
-      <button type="submit" class="submit-btn" id="submitBtn">drop in</button>
-    </form>
-    
-    <div class="message" id="message"></div>
     
     <script>
       // Initialize Supabase client
@@ -199,7 +254,10 @@
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        const email = emailInput.value.trim();
+        const email = document.getElementById('emailInput').value.trim();
+        const ethAddress = document.getElementById('ethAddressInput').value.trim();
+        const solAddress = document.getElementById('solAddressInput').value.trim();
+        
         if (!email) return;
         
         // Disable form during submission
@@ -208,15 +266,17 @@
         message.textContent = '';
         
         try {
-          console.log('Attempting to insert email:', email);
+          console.log('Attempting to insert:', {email, ethAddress, solAddress});
           console.log('Supabase client:', supabase);
           
-          // Insert email into Supabase
+          // Insert data into Supabase
           const { data, error } = await supabase
             .from('ninetynine labs waitlist')
             .insert([
               { 
-                email: email
+                email: email,
+                eth_address: ethAddress || null,
+                sol_address: solAddress || null
               }
             ]);
           
@@ -236,7 +296,9 @@
           } else {
             message.textContent = 'welcome to the waitlist';
             message.className = 'message success';
-            emailInput.value = '';
+            document.getElementById('emailInput').value = '';
+            document.getElementById('ethAddressInput').value = '';
+            document.getElementById('solAddressInput').value = '';
           }
           
         } catch (error) {
@@ -251,7 +313,17 @@
       });
       
       // Clear message when user starts typing again
-      emailInput.addEventListener('input', () => {
+      document.getElementById('emailInput').addEventListener('input', () => {
+        message.textContent = '';
+        message.className = 'message';
+      });
+      
+      document.getElementById('ethAddressInput').addEventListener('input', () => {
+        message.textContent = '';
+        message.className = 'message';
+      });
+      
+      document.getElementById('solAddressInput').addEventListener('input', () => {
         message.textContent = '';
         message.className = 'message';
       });
