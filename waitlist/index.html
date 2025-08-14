@@ -73,14 +73,14 @@
       }
       
       .by-line a {
-        color: #1E40AF;
+        color: #6B46C1;
         text-decoration: underline;
         font-family: Arial, sans-serif;
         font-weight: bold;
       }
       
       .by-line a:hover {
-        color: #5A7AD9;
+        color: #8B5CF6;
         text-decoration: underline;
         text-shadow: 0 0 8px currentColor;
       }
@@ -162,11 +162,11 @@
       }
       
       .success {
-        color: #1E40AF;
+        color: #6B46C1;
       }
       
       .error {
-        color: #1E40AF;
+        color: #6B46C1;
       }
       
       @media (max-width: 600px) {
@@ -179,12 +179,12 @@
         }
         
         .form-container {
-          flex-direction: row;
+          flex-direction: column;
           gap: 15px;
         }
         
-        .email-input {
-          width: 300px;
+        .form-input {
+          width: 280px;
           height: 50px;
           font-size: 20px;
         }
@@ -193,6 +193,10 @@
           width: 100px;
           height: 56px;
           font-size: 20px;
+        }
+        
+        img {
+          max-width: 50% !important;
         }
       }
     </style>
@@ -238,6 +242,12 @@
         <div class="message" id="message"></div>
       </div>
     </div>
+    
+    <footer style="background-color: #000000; color: #00FF00; text-align: center; padding: 20px; margin-top: auto; width: 100%;">
+      <div class="container">
+        © 2025 ninetynine labs
+      </div>
+    </footer>
     
     <script>
       // Initialize Supabase client
