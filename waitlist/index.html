@@ -292,14 +292,14 @@
             console.error('Supabase error details:', error);
             // Check if it's a duplicate email error
             if (error.code === '23505' || error.message.includes('duplicate')) {
-              message.textContent = "you're already on the waitlist but thanks for the persistence";
+              message.textContent = "you're already on the waitlist";
               message.className = 'message success';
             } else {
               message.textContent = `error: ${error.message}`;
               message.className = 'message error';
             }
           } else {
-            message.textContent = 'welcome to ninetynine labs';
+            message.textContent = "welcome";
             message.className = 'message success';
             document.getElementById('emailInput').value = '';
             document.getElementById('ethAddressInput').value = '';
