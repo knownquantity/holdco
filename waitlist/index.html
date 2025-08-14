@@ -3,21 +3,21 @@
   <head prefix="og: https://ogp.me/ns#">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>waitlist - ninetynine labs</title>
-    <meta name="description" content="join the waitlist, exit the algorithm">
+    <title>waitlist</title>
+    <meta name="description" content="exit the algorithm">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://1999.wtf/waitlist">
-    <meta property="og:title" content="waitlist - ninetynine labs">
-    <meta property="og:description" content="join the waitlist, exit the algorithm">
+    <meta property="og:title" content="waitlist">
+    <meta property="og:description" content="exit the algorithm">
     <meta property="og:image" content="https://1999.wtf/1999v3.png">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://1999.wtf/waitlist">
-    <meta property="twitter:title" content="waitlist - ninetynine labs">
-    <meta property="twitter:description" content="join the waitlist, exit the algorithm">
+    <meta property="twitter:title" content="waitlist">
+    <meta property="twitter:description" content="exit the algorithm">
     <meta property="twitter:image" content="https://1999.wtf/1999v3.png">
     
     <!-- Favicon -->
@@ -76,13 +76,14 @@
       
       .by-line a {
         color: #1E40AF;
-        text-decoration: none;
+        text-decoration: underline;
         font-family: Arial, sans-serif;
       }
       
       .by-line a:hover {
+        color: #5A7AD9;
         text-decoration: underline;
-        color: #1E40AF;
+        text-shadow: 0 0 8px currentColor;
       }
       
       .subtitle {
@@ -287,14 +288,14 @@
             console.error('Supabase error details:', error);
             // Check if it's a duplicate email error
             if (error.code === '23505' || error.message.includes('duplicate')) {
-              message.textContent = 'already on the list, see you soon';
+              message.textContent = "you're already on the waitlist but thanks for the persistence";
               message.className = 'message success';
             } else {
               message.textContent = `error: ${error.message}`;
               message.className = 'message error';
             }
           } else {
-            message.textContent = 'welcome to the waitlist';
+            message.textContent = 'welcome to ninetynine labs';
             message.className = 'message success';
             document.getElementById('emailInput').value = '';
             document.getElementById('ethAddressInput').value = '';
