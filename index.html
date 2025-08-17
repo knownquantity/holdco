@@ -24,7 +24,10 @@
     <link rel="icon" type="image/png" href="/cerculeanblue.png">
     <link rel="apple-touch-icon" href="/cerculeanblue.png">
     
-    <link href="/style.css" rel="stylesheet" type="text/css" media="all">
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <!-- Cloudflare Turnstile Script -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    
     <style>
       body {
         margin: 0;
@@ -55,6 +58,12 @@
         padding: 40px 20px;
       }
       
+      .waitlist-section {
+        background-color: #B8B8B8; /* Darker gray than drops section */
+        color: #2C2C2C; /* Dark charcoal text */
+        padding: 40px 20px;
+      }
+      
       footer {
         background-color: #000000; /* Deep black - Y2K terminal */
         color: #00FF41; /* Matrix green text */
@@ -77,6 +86,99 @@
         color: #66B3FF; /* Lighter electric blue on hover */
         text-shadow: 0 0 8px currentColor; /* Glow effect */
       }
+      
+      /* Waitlist Form Styles */
+      .waitlist-form {
+        margin-top: 20px;
+      }
+      
+      .form-container {
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-direction: column;
+        margin-bottom: 20px;
+      }
+      
+      .form-input {
+        width: 400px;
+        height: 40px;
+        font-size: 16px;
+        padding: 0 15px;
+        border: 1px solid #000000;
+        border-radius: 0;
+        background-color: #B8B8B8;
+        color: #2C2C2C;
+        font-family: Arial, sans-serif;
+      }
+      
+      .form-input:focus {
+        outline: none;
+        background-color: #B8B8B8;
+        color: #2C2C2C;
+      }
+      
+      .form-input::placeholder {
+        color: #666666;
+      }
+      
+      .turnstile-container {
+        margin: 15px 0;
+      }
+      
+      .submit-btn {
+        width: 120px;
+        height: 40px;
+        font-size: 16px;
+        border: 1px solid #000000;
+        border-radius: 0;
+        background-color: #B8B8B8;
+        color: #2C2C2C;
+        cursor: pointer;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+        margin-top: 0;
+      }
+      
+      .submit-btn:hover {
+        background-color: #A8A8A8;
+      }
+      
+      .submit-btn:active {
+        background-color: #989898;
+      }
+      
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      
+      .message {
+        margin-top: 20px;
+        font-size: 16px;
+        text-align: left;
+        min-height: 24px;
+        font-family: Arial, sans-serif;
+      }
+      
+      .success {
+        color: #0066FF;
+      }
+      
+      .error {
+        color: #0066FF;
+      }
+      
+      @media (max-width: 600px) {
+        .form-input {
+          width: 280px;
+        }
+        
+        .submit-btn {
+          width: 100px;
+        }
+      }
     </style>
   </head>
   
@@ -90,22 +192,8 @@
       </div>
     </section>
 
-    <!-- Lore Section -->
-    <section class="lore-section">
-      <div class="container">
-        <h2>//lore</h2>
-        <p>for those who still care about the <a href="https://paragraph.com/@funhouse/partying-like-its-1999">why</a></p>
-        <p>currently under construction:</p>
-        <p>networks that don't just connect people, but give them a reason to care about one another</p>
-        <p>tools that empower human-to-human interaction as a powerful engine for discovery and belonging</p>
-        <p>platforms that are a deliberate counternarrative to the noise and disposability of today's internet</p>
-        <p>experiences that allow us to max out on the real things in life that actually matter and make us who we are</p>
-        <p>love letters to the way things used to be</p>
-      </div>
-    </section>
-
     <!-- Drops Section -->
-    <section class="drops-section">
+    <section class="lore-section">
       <div class="container">
         <h2>//drops</h2>
         <p>hit <a href="https://1999.wtf/waitlist/">ctrl+enter</a></p>
@@ -118,10 +206,170 @@
       </div>
     </section>
 
+    <!-- Lore Section -->
+    <section class="drops-section">
+      <div class="container">
+        <h2>//lore</h2>
+        <p>for those who still care about the <a href="https://paragraph.com/@funhouse/partying-like-its-1999">why</a></p>
+        <p>currently under construction:</p>
+        <p>networks that don't just connect people, but give them a reason to care about one another</p>
+        <p>tools that empower human-to-human interaction as a powerful engine for discovery and belonging</p>
+        <p>platforms that are a deliberate counternarrative to the noise and disposability of today's internet</p>
+        <p>experiences that allow us to max out on the real things in life that actually matter and make us who we are</p>
+        <p>love letters to the way things used to be</p>
+      </div>
+    </section>
+
+    <!-- Waitlist Section -->
+    <section class="waitlist-section">
+      <div class="container">
+        <h2>//waitlist</h2>
+        
+        <form id="waitlistForm" class="waitlist-form">
+          <div class="form-container">
+            <input 
+              type="email" 
+              class="form-input" 
+              id="emailInput"
+              placeholder="email (required)" 
+              required
+              autocomplete="email"
+            >
+            <input 
+              type="text" 
+              class="form-input" 
+              id="ethAddressInput"
+              placeholder="eth address (optional)" 
+              autocomplete="off"
+            >
+            <input 
+              type="text" 
+              class="form-input" 
+              id="solAddressInput"
+              placeholder="sol address (optional)" 
+              autocomplete="off"
+            >
+          </div>
+          
+          <!-- Cloudflare Turnstile Widget -->
+          <div class="turnstile-container">
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAABsm5DpRM07Eih_2"></div>
+          </div>
+          
+          <button type="submit" class="submit-btn" id="submitBtn" disabled>enter</button>
+        </form>
+        
+        <div class="message" id="message"></div>
+      </div>
+    </section>
+
     <footer>
       <div class="container">
         © 2025 ninetynine labs
       </div>
     </footer>
+    
+    <script>
+      // Initialize Supabase client
+      const supabaseUrl = 'https://jzxmdagyfxylqefpikrr.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp6eG1kYWd5Znh5bHFlZnBpa3JyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1Mjc4MzgsImV4cCI6MjA2ODEwMzgzOH0.HO17RKaz5z_7zVGlaMP3CQHSbNnzH2oyD9kffM5eCVE';
+      const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+      
+      const form = document.getElementById('waitlistForm');
+      const emailInput = document.getElementById('emailInput');
+      const submitBtn = document.getElementById('submitBtn');
+      const message = document.getElementById('message');
+      
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const email = document.getElementById('emailInput').value.trim();
+        const ethAddress = document.getElementById('ethAddressInput').value.trim();
+        const solAddress = document.getElementById('solAddressInput').value.trim();
+        
+        if (!email) return;
+        
+        // Check Cloudflare Turnstile
+        const turnstileResponse = turnstile.getResponse();
+        if (!turnstileResponse) {
+          message.textContent = 'please complete the verification';
+          message.className = 'message error';
+          return;
+        }
+        
+        // Disable form during submission
+        submitBtn.disabled = true;
+        submitBtn.textContent = '...';
+        message.textContent = '';
+        
+        try {
+          console.log('Attempting to insert:', {email, ethAddress, solAddress});
+          console.log('Supabase client:', supabase);
+          
+          // Insert data into Supabase
+          const { data, error } = await supabase
+            .from('ninetynine labs waitlist')
+            .insert([
+              { 
+                email: email,
+                eth_address: ethAddress || null,
+                sol_address: solAddress || null
+              }
+            ]);
+          
+          console.log('Supabase response - data:', data);
+          console.log('Supabase response - error:', error);
+          
+          if (error) {
+            console.error('Supabase error details:', error);
+            // Check if it's a duplicate email error
+            if (error.code === '23505' || error.message.includes('duplicate')) {
+              message.textContent = "you're already on the waitlist";
+              message.className = 'message success';
+            } else {
+              message.textContent = `error: ${error.message}`;
+              message.className = 'message error';
+            }
+          } else {
+            message.textContent = "welcome";
+            message.className = 'message success';
+            document.getElementById('emailInput').value = '';
+            document.getElementById('ethAddressInput').value = '';
+            document.getElementById('solAddressInput').value = '';
+            // Reset Turnstile
+            turnstile.reset();
+          }
+          
+        } catch (error) {
+          console.error('Catch block error:', error);
+          message.textContent = `connection error: ${error.message}`;
+          message.className = 'message error';
+        } finally {
+          // Re-enable form
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'enter';
+        }
+      });
+      
+      // Clear message when user starts typing again and enable/disable submit button
+      document.getElementById('emailInput').addEventListener('input', (e) => {
+        message.textContent = '';
+        message.className = 'message';
+        
+        // Enable submit button only if email field has content
+        const email = e.target.value.trim();
+        submitBtn.disabled = !email;
+      });
+      
+      document.getElementById('ethAddressInput').addEventListener('input', () => {
+        message.textContent = '';
+        message.className = 'message';
+      });
+      
+      document.getElementById('solAddressInput').addEventListener('input', () => {
+        message.textContent = '';
+        message.className = 'message';
+      });
+    </script>
   </body>
 </html>
